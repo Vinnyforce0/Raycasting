@@ -1,9 +1,9 @@
 {
   "background_color": "#ffffff",
   "dir": "ltr",
-  "display": "standalone",
+  "display": "fullscreen",
   "name": "Raycasting",
-  "orientation": "any",
+  "orientation": "landscape",
   "scope": "/",
   "short_name": "Raycast",
   "start_url": "/https://vinnyforce0.github.io/Raycasting/",
