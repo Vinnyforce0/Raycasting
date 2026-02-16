@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raycast Game</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: green;
+      touch-action: none; /* evita scroll no celular */
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="game"></canvas>
+
+<script src="game.js"></script>     <!-- cria canvas -->
+<script src="player.js"></script>   <!-- cria movePlayer -->
+<script src="sky.js"></script> <!-- cria ceu -->
+<script src="floor.js"></script> <!-- cria terreno -->
+<script src="raycast.js"></script>  <!-- usa player -->
+<script src="joystick.js"></script> <!-- usa canvas e player -->
+
+
+</body>
+</html>
