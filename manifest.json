@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Raycasting",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Raycast",
+  "start_url": "/https://vinnyforce0.github.io/Raycasting/",
+  "theme_color": "#ffffff"
+}
