@@ -8,21 +8,18 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
-function loop() {
-  FPS.update(() => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (typeof drawSky === "function") drawSky();       // desenha o céu
-  //if (typeof drawFloor === "function") drawFloor();   // desenha o chão
-  if (typeof movePlayer === "function") movePlayer();
-  if (typeof castRays === "function") castRays();
-  if (typeof drawJoystick === "function") drawJoystick();
-  });
-  requestAnimationFrame(loop);
-
-}
-
-// Espera tudo carregar
+// =======================
+// INICIA O JOGO
+// =======================
 window.onload = () => {
-  loop();
+  // Passa o callback do jogo para o FPS manager
+  FPS.update(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (typeof drawSky === "function") drawSky();       // desenha o céu
+    //if (typeof drawFloor === "function") drawFloor(); // desenha o chão
+    if (typeof movePlayer === "function") movePlayer();
+    if (typeof castRays === "function") castRays();
+    if (typeof drawJoystick === "function") drawJoystick();
+  });
 };
