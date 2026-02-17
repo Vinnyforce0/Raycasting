@@ -9,8 +9,7 @@ window.addEventListener("resize", resize);
 resize();
 
 function loop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  function loop() {
+  FPS.update(() => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (typeof drawSky === "function") drawSky();       // desenha o céu
@@ -18,12 +17,9 @@ function loop() {
   if (typeof movePlayer === "function") movePlayer();
   if (typeof castRays === "function") castRays();
   if (typeof drawJoystick === "function") drawJoystick();
-
+  });
   requestAnimationFrame(loop);
-}
 
-
-  requestAnimationFrame(loop);
 }
 
 // Espera tudo carregar
