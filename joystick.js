@@ -23,7 +23,7 @@ canvas.addEventListener("touchstart", (e) => {
   for (let touch of e.changedTouches) {
 
     // Lado esquerdo = joystick
-    if (touch.clientX < canvas.width / 2 && joystickTouchId === null) {
+    if (touch.clientX < canvas.width / 3 && joystickTouchId === null) {
       joystickTouchId = touch.identifier;
       joystick.active = true;
       joystick.baseX = touch.clientX;
@@ -33,7 +33,7 @@ canvas.addEventListener("touchstart", (e) => {
     }
 
     // Lado direito = câmera
-    else if (touch.clientX >= canvas.width / 2 && cameraTouchId === null) {
+    else if (touch.clientX >= canvas.width / 3 && cameraTouchId === null) {
       cameraTouchId = touch.identifier;
       lastLookX = touch.clientX;
     }
@@ -86,7 +86,7 @@ canvas.addEventListener("touchend", (e) => {
 // =====================
 
 canvas.addEventListener("mousedown", (e) => {
-  if (e.clientX < canvas.width / 2) {
+  if (e.clientX < canvas.width / 3) {
     joystick.active = true;
     joystick.baseX = e.clientX;
     joystick.baseY = e.clientY;
