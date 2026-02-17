@@ -13,16 +13,6 @@
       "type": "image/jpeg"
     },
     {
-      "src": "Images/floor.jpg",
-      "sizes": "256x256",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "Images/laser.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
       "src": "Images/laser.png",
       "sizes": "192x192",
       "type": "image/png"
