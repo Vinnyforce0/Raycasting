@@ -1,40 +1,32 @@
 // =======================
-// FPS MANAGER
+// FPS MANAGER REAL
 // =======================
 
 const FPS = {
-  target: 60,                  // limite de FPS
-  frameCount: 0,
-  fps: 0,
+  target: 60,                  // limite de FPS desejado
   lastTime: performance.now(),
-  lastFpsUpdate: performance.now(),
+  fps: 0,
 
   update: function(updateGameCallback) {
     const now = performance.now();
     const delta = now - this.lastTime;
-    const targetFrameDuration = 1000 / this.target;
 
-    // Atualiza lógica/desenho apenas se passou tempo suficiente
+    // Atualiza o jogo apenas se passou tempo suficiente (limite de FPS)
+    const targetFrameDuration = 1000 / this.target;
     if (delta >= targetFrameDuration) {
       this.lastTime = now - (delta % targetFrameDuration);
 
-      // Chama o callback do jogo (desenho e lógica)
+      // Chama callback do jogo
       updateGameCallback();
 
-      this.frameCount++;
-    }
-
-    // Atualiza contador de FPS a cada 1 segundo
-    if (now - this.lastFpsUpdate >= 1000) {
-      this.fps = this.frameCount;
-      this.frameCount = 0;
-      this.lastFpsUpdate = now;
+      // Calcula FPS real do frame
+      this.fps = 1000 / delta;
     }
 
     // Desenha FPS no canto superior esquerdo
     ctx.fillStyle = "black";
     ctx.font = "20px Arial";
-    ctx.fillText("FPS: " + this.fps, 10, 30);
+    ctx.fillText("FPS: " + this.fps.toFixed(0), 10, 30);
 
     requestAnimationFrame(() => this.update(updateGameCallback));
   }

@@ -18,9 +18,14 @@
       "type": "image/jpeg"
     },
     {
-      "src": "floor.jpg",
+      "src": "laser.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
+    },
+    {
+      "src": "laser.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
       "src": "sky.jpg",
