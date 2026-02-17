@@ -1,5 +1,5 @@
 const FPS = {
-  target: 60,
+  target: 30,
   lastTime: performance.now(),
   fps: 0,
 

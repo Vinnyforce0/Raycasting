@@ -5,6 +5,7 @@
 window.gameSettings = {
   sky: true,
   floor: true,
+  usetextures: true,
   fps: 30
 };
 
@@ -47,12 +48,13 @@ function toggleSettingsMenu() {
   menu.style.background = "#111";
   menu.style.color = "white";
   menu.style.padding = "15px";
+  menu.style.marginTop = "20px";
   menu.style.borderRadius = "10px";
   menu.style.zIndex = "999";
   menu.style.width = "200px";
 
   menu.innerHTML = `
-    <h3>Configurações</h3>
+    <h3>Configurações</h3><br>
 
     <label>
       <input type="checkbox" id="skyToggle" ${gameSettings.sky ? "checked" : ""}>
@@ -62,6 +64,11 @@ function toggleSettingsMenu() {
     <label>
       <input type="checkbox" id="floorToggle" ${gameSettings.floor ? "checked" : ""}>
       Chão
+    </label><br><br>
+    
+    <label>
+      <input type="checkbox" id="textureToggle" ${gameSettings.usetextures ? "checked" : ""}>
+      Paredes
     </label><br><br>
 
     <label>
@@ -80,6 +87,10 @@ function toggleSettingsMenu() {
 
   document.getElementById("floorToggle").onchange = (e) => {
     gameSettings.floor = e.target.checked;
+  };
+  
+  document.getElementById("textureToggle").onchange = (e) => {
+    gameSettings.usetextures = e.target.checked;
   };
 
   const slider = document.getElementById("fpsSlider");

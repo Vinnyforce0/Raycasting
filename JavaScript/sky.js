@@ -3,7 +3,7 @@
 // =======================
 
 const skyTexture = new Image();
-skyTexture.src = "sky.jpg"; // coloque a imagem na pasta
+skyTexture.src = "Images/sky.jpg"; // coloque a imagem na pasta
 
 function drawSky() {
   const halfHeight = canvas.height / 2;

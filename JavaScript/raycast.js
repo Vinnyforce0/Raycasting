@@ -1,8 +1,20 @@
 const fov = Math.PI / 3;
 const rays = 200;
 const maxDepth = 800;
+const tileSize = 64;
 
-function castRays() {
+// =======================
+// CARREGAR TEXTURA
+// =======================
+
+const wallTexture = new Image();
+wallTexture.src = "Images/floor.jpg";
+
+// =======================
+// RAYCAST COM TEXTURA
+// =======================
+
+function castRays(usetextures) {
 
   for (let i = 0; i < rays; i++) {
 
@@ -39,32 +51,75 @@ function castRays() {
       const y =
         canvas.height / 2 - wallHeight / 2;
 
-      const shade =
-        255 - Math.min(255, correctedDepth * 0.5);
+      // =======================
+      // CALCULAR POSIÇÃO NA TEXTURA
+      // =======================
 
-      ctx.fillStyle =
-        `rgb(${shade},${shade},${shade})`;
+      const hitX = player.x + Math.cos(rayAngle) * depth;
+      const hitY = player.y + Math.sin(rayAngle) * depth;
 
-      ctx.fillRect(
-        x,
-        y,
-        columnWidth + 1,
-        wallHeight
-      );
+      const offsetX = hitX % tileSize;
+      const offsetY = hitY % tileSize;
+
+      let wallX;
+
+      // detecta qual lado foi mais próximo da borda
+      if (offsetX < 1 || offsetX > tileSize - 1) {
+        wallX = offsetY / tileSize;
+      } else {
+        wallX = offsetX / tileSize;
+      }
+
+
+      let texX =
+        Math.floor(wallX * wallTexture.width);
+
+      // segurança contra erro
+      if (texX < 0) texX = 0;
+      if (texX >= wallTexture.width)
+        texX = wallTexture.width - 1;
+
+      // =======================
+      // DESENHAR COLUNA TEXTURIZADA
+      // =======================
+
+      if (usetextures && wallTexture.complete) {
+
+        ctx.drawImage(
+          wallTexture,
+          texX, 0, 1, wallTexture.height,
+          x, y, columnWidth + 1, wallHeight
+        );
+
+      } else {
+
+        // versão sem textura (cor simples)
+        let shade = Math.min(correctedDepth / 500, 1);
+
+        ctx.fillStyle = `rgba(${200 - shade * 100}, 
+                        ${200 - shade * 100}, 
+                        ${200 - shade * 100}, 1)`;
+
+        ctx.fillRect(x, y, columnWidth + 1, wallHeight);
+      }
+      // escurecimento por distância
+      let shade = Math.min(correctedDepth / 600, 1);
+
+      ctx.fillStyle = `rgba(0,0,0,${shade})`;
+      ctx.fillRect(x, y, columnWidth + 1, wallHeight);
+
     }
   }
 }
 
-const tileSize = 64;
-
 const map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
 function isWall(x, y) {

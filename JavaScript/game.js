@@ -19,8 +19,8 @@ window.onload = () => {
     if (gameSettings.floor && typeof drawFloor === "function") drawFloor();
     if (gameSettings.sky && typeof drawSky === "function") drawSky();
     if (typeof movePlayer === "function") movePlayer(deltaTime);
-    if (typeof castRays === "function") castRays();
+    if (typeof castRays === "function") castRays(gameSettings.usetextures);
     if (typeof drawJoystick === "function") drawJoystick();
-    
+
   });
 };

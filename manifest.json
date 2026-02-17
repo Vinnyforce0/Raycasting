@@ -8,27 +8,27 @@
   "description": "nenhuma descrição",
   "icons": [
     {
-      "src": "floor.jpg",
+      "src": "Images/floor.jpg",
       "sizes": "128x128",
       "type": "image/jpeg"
     },
     {
-      "src": "floor.jpg",
+      "src": "Images/floor.jpg",
       "sizes": "256x256",
       "type": "image/jpeg"
     },
     {
-      "src": "laser.png",
+      "src": "Images/laser.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "laser.png",
+      "src": "Images/laser.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "sky.jpg",
+      "src": "Images/sky.jpg",
       "sizes": "1123x794",
       "type": "image/jpeg"
     }
