@@ -34,6 +34,14 @@
 <script src="raycast.js"></script>  <!-- usa player -->
 <script src="joystick.js"></script> <!-- usa canvas e player -->
 
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(reg => console.log('Service Worker registrado', reg))
+    .catch(err => console.error('Erro no Service Worker', err));
+}
+</script>
+
 
 </body>
 </html>
