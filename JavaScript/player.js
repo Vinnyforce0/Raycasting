@@ -5,7 +5,7 @@ const player = {
   speed: 1
 };
 
-function movePlayer() {
+function movePlayer(deltaTime) {
 
   if (!joystick.active) return;
 
@@ -15,7 +15,7 @@ function movePlayer() {
   const magnitude = Math.sqrt(dx * dx + dy * dy);
   if (magnitude < 5) return;
 
-  const speed = 0.05 * player.speed;
+  const speed = 1.5 * player.speed * (deltaTime * 1.2);
 
   // Normaliza
   const nx = dx / joystick.maxRadius;

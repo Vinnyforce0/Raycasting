@@ -1,28 +1,53 @@
+// =======================
+// FLOORCAST COM IMAGEDATA
+// =======================
+
+let floorImageData = null;
+let floorBuffer = null;
+
+function initFloorBuffer() {
+  floorImageData = ctx.createImageData(canvas.width, canvas.height);
+  floorBuffer = floorImageData.data;
+}
+
 function drawFloor() {
-  const halfHeight = canvas.height / 2;
-  const tileSize = 20; // tamanho de cada quadrado
 
-  // calcula deslocamento contínuo
-  const cosA = Math.cos(player.angle);
-  const sinA = Math.sin(player.angle);
+  if (!floorImageData ||
+    floorImageData.width !== canvas.width ||
+    floorImageData.height !== canvas.height) {
+    initFloorBuffer();
+  }
 
-  // deslocamento do chão baseado no movimento e na rotação
-  const offsetX = -((player.x * cosA + player.y * sinA) * 1) % tileSize;
-  const offsetY = -((player.y * cosA - player.x * sinA) * 1) % tileSize;
+  const horizon = canvas.height / 2;
+  const fov = Math.PI / 3;
 
-  // corrige offset negativo
-  const finalOffsetX = offsetX < 0 ? offsetX + tileSize : offsetX;
-  const finalOffsetY = offsetY < 0 ? offsetY + tileSize : offsetY;
+  for (let y = horizon; y < canvas.height; y++) {
 
-  // desenha os tiles
-  for (let x = finalOffsetX - tileSize; x < canvas.width; x += tileSize) {
-    for (let y = halfHeight + finalOffsetY - tileSize; y < canvas.height; y += tileSize) {
-      const col = Math.floor((x - finalOffsetX) / tileSize);
-      const row = Math.floor((y - halfHeight - finalOffsetY) / tileSize);
-      const isLight = (col + row) % 2 === 0;
+    const perspective = (y - horizon);
+    if (perspective === 0) continue;
 
-      ctx.fillStyle = isLight ? "#666" : "#444";
-      ctx.fillRect(x, y, tileSize, tileSize);
+    const rowDistance = (canvas.height / (2 * perspective));
+
+    for (let x = 0; x < canvas.width; x++) {
+
+      const rayAngle =
+        player.angle - (fov / 2) +
+        (x / canvas.width) * fov;
+
+      const floorX = player.x + Math.cos(rayAngle) * rowDistance;
+      const floorY = player.y + Math.sin(rayAngle) * rowDistance;
+
+      // índice do pixel no buffer
+      const index = (y * canvas.width + x) * 4;
+
+      const shade = Math.max(0, 100 - rowDistance * 15);
+
+      floorBuffer[index] = shade;
+      floorBuffer[index + 1] = shade;
+      floorBuffer[index + 2] = shade;
+      floorBuffer[index + 3] = 255;
     }
   }
+
+  ctx.putImageData(floorImageData, 0, 0);
 }

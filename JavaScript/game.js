@@ -13,13 +13,14 @@ resize();
 // =======================
 window.onload = () => {
   // Passa o callback do jogo para o FPS manager
-  FPS.update(() => {
+  FPS.update((deltaTime) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (typeof drawSky === "function") drawSky();       // desenha o céu
-    //if (typeof drawFloor === "function") drawFloor(); // desenha o chão
-    if (typeof movePlayer === "function") movePlayer();
+    if (gameSettings.floor && typeof drawFloor === "function") drawFloor();
+    if (gameSettings.sky && typeof drawSky === "function") drawSky();
+    if (typeof movePlayer === "function") movePlayer(deltaTime);
     if (typeof castRays === "function") castRays();
     if (typeof drawJoystick === "function") drawJoystick();
+    
   });
 };
