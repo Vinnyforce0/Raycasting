@@ -11,7 +11,7 @@ function drawSky() {
   // normaliza ângulo entre 0 e 2π
   const angle = (player.angle % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
 
-  const skySpeed = 5; // ajuste a sensibilidade do céu
+  const skySpeed = 7; // ajuste a sensibilidade do céu
   const textureWidth = skyTexture.width;
 
   // calcula deslocamento proporcional ao ângulo
