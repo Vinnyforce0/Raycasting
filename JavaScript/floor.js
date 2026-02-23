@@ -4,10 +4,10 @@
 
 function drawFloor() {
   const horizon = canvas.height / 2;
-  const fov = Math.PI / 3;
+  const fov = (gameSettings.fov * Math.PI) / 180; // Usa configuração
   
   // Desenha linhas horizontais em vez de pixel-by-pixel
-  for (let y = horizon; y < canvas.height; y += 2) {
+  for (let y = horizon; y < canvas.height; y += 1) {
     const perspective = (y - horizon);
     if (perspective === 0) continue;
 
@@ -18,7 +18,6 @@ function drawFloor() {
     
     ctx.strokeStyle = `rgb(${shade}, ${shade}, ${shade})`;
     ctx.lineWidth = 2;
-    
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(canvas.width, y);

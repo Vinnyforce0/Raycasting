@@ -19,8 +19,15 @@ window.onload = () => {
     if (gameSettings.floor && typeof drawFloor === "function") drawFloor();
     if (gameSettings.sky && typeof drawSky === "function") drawSky();
     if (typeof movePlayer === "function") movePlayer(deltaTime);
-    if (typeof castRays === "function") castRays(gameSettings.usetextures);
+    if (typeof castRays === "function") castRays(gameSettings.usetextures, gameSettings.fov, gameSettings.rays);
     if (typeof drawJoystick === "function") drawJoystick();
+
+    // Exibe versão no canto inferior direito
+    ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText("v" + gameSettings.version, canvas.width - 10, canvas.height - 10);
+    ctx.textAlign = "left";
 
   });
 };

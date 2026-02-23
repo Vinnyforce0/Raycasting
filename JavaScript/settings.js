@@ -6,7 +6,10 @@ window.gameSettings = {
   sky: true,
   floor: true,
   usetextures: true,
-  fps: 30
+  fps: 30,
+  fov: 60,      // em graus (60°)
+  rays: 200,    // número de raios (resolução)
+  version: APP_VERSION
 };
 
 // =======================
@@ -73,8 +76,18 @@ function toggleSettingsMenu() {
 
     <label>
       FPS:
-      <input type="range" id="fpsSlider" min="15" max="60" value="${gameSettings.fps}">
+      <input type="range" id="fpsSlider" min="15" max="60" step="15" value="${gameSettings.fps}">
       <span id="fpsValue">${gameSettings.fps}</span>
+    </label><br><br>
+
+    <label>
+      FOV: <span id="fovValue">${gameSettings.fov}°</span><br>
+      <input type="range" id="fovSlider" min="30" max="120" value="${gameSettings.fov}">
+    </label><br><br>
+
+    <label>
+      Raios: <span id="raysValue">${gameSettings.rays}</span><br>
+      <input type="range" id="raysSlider" min="50" max="300" step="10" value="${gameSettings.rays}">
     </label>
   `;
 
@@ -93,16 +106,30 @@ function toggleSettingsMenu() {
     gameSettings.usetextures = e.target.checked;
   };
 
-  const slider = document.getElementById("fpsSlider");
+  const fpsSlider = document.getElementById("fpsSlider");
   const fpsValue = document.getElementById("fpsValue");
+  const fovSlider = document.getElementById("fovSlider");
+  const fovValue = document.getElementById("fovValue");
+  const raysSlider = document.getElementById("raysSlider");
+  const raysValue = document.getElementById("raysValue");
 
-  slider.oninput = (e) => {
+  fpsSlider.oninput = (e) => {
     gameSettings.fps = parseInt(e.target.value);
     fpsValue.textContent = gameSettings.fps;
 
     if (typeof FPS !== "undefined") {
       FPS.target = gameSettings.fps;
     }
+  };
+
+  fovSlider.oninput = (e) => {
+    gameSettings.fov = parseInt(e.target.value);
+    fovValue.textContent = gameSettings.fov + "°";
+  };
+
+  raysSlider.oninput = (e) => {
+    gameSettings.rays = parseInt(e.target.value);
+    raysValue.textContent = gameSettings.rays;
   };
 }
 

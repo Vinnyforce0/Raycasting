@@ -14,6 +14,7 @@ const joystick = {
 let joystickTouchId = null;
 let cameraTouchId = null;
 let lastLookX = 0;
+let isLooking = false; // Declara variável para mouse lookup
 
 // =====================
 // TOUCH EVENTS

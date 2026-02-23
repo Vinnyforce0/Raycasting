@@ -1,9 +1,12 @@
 // service-worker.js
 
+// Importa a versão do config.js
+importScripts('JavaScript/config.js');
+
 // Detecta localhost/Live Server (/) ou GitHub Pages (/Raycasting/)
 const isDev = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
 const BASE_PATH = isDev ? '/' : '/Raycasting/';
-const CACHE_NAME = 'raycast-v1.01'; // Atualize a versão para forçar atualização do cache
+const CACHE_NAME = 'raycast-v' + APP_VERSION;
 const ASSETS_TO_CACHE = [
   BASE_PATH,
   BASE_PATH + 'index.html',

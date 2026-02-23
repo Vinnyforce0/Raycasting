@@ -1,7 +1,9 @@
-const fov = Math.PI / 3;
-const rays = 200;
-const maxDepth = 800;
+// =======================
+// CONSTANTES GLOBAIS
+// =======================
+
 const tileSize = 64;
+const maxDepth = 800;
 
 // =======================
 // CARREGAR TEXTURA
@@ -11,10 +13,44 @@ const wallTexture = new Image();
 wallTexture.src = "Images/floor.jpg";
 
 // =======================
+// MAPA
+// =======================
+
+const map = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
+
+function isWall(x, y) {
+  const mapX = Math.floor(x / tileSize);
+  const mapY = Math.floor(y / tileSize);
+
+  if (
+    mapX < 0 ||
+    mapY < 0 ||
+    mapY >= map.length ||
+    mapX >= map[0].length
+  ) {
+    return true;
+  }
+
+  return map[mapY][mapX] === 1;
+}
+
+// =======================
 // RAYCAST COM TEXTURA
 // =======================
 
-function castRays(usetextures) {
+function castRays(usetextures, fovDegrees, numRays) {
+  
+  // Usa os parâmetros passados ou os valores padrão
+  const fov = (fovDegrees * Math.PI) / 180; // Converte graus para radianos
+  const rays = numRays;
 
   for (let i = 0; i < rays; i++) {
 
@@ -110,31 +146,4 @@ function castRays(usetextures) {
 
     }
   }
-}
-
-const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-];
-
-function isWall(x, y) {
-
-  const mapX = Math.floor(x / tileSize);
-  const mapY = Math.floor(y / tileSize);
-
-  if (
-    mapX < 0 ||
-    mapY < 0 ||
-    mapY >= map.length ||
-    mapX >= map[0].length
-  ) {
-    return true;
-  }
-
-  return map[mapY][mapX] === 1;
 }

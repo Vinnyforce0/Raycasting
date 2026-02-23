@@ -2,12 +2,14 @@ const FPS = {
   target: 30,
   lastTime: performance.now(),
   fps: 0,
+  frameCount: 0,
+  lastSecond: performance.now(),
 
   update: function(updateGameCallback) {
     const now = performance.now();
     const delta = now - this.lastTime;
 
-    const targetFrameDuration = 1000 / this.target;
+    const targetFrameDuration = 500 / this.target;
 
     if (delta >= targetFrameDuration) {
 
@@ -19,12 +21,19 @@ const FPS = {
       // Passa deltaTime para o jogo
       updateGameCallback(deltaTime);
 
-      this.fps = 1000 / delta;
+      this.frameCount++;
+    }
+
+    // Atualiza FPS a cada segundo
+    if (now - this.lastSecond >= 1000) {
+      this.fps = this.frameCount;
+      this.frameCount = 0;
+      this.lastSecond = now;
     }
 
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
-    ctx.fillText("FPS: " + this.fps.toFixed(0), 10, 30);
+    ctx.fillText("FPS: " + this.fps, 10, 30);
 
     requestAnimationFrame(() => this.update(updateGameCallback));
   }
