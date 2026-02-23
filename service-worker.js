@@ -1,6 +1,8 @@
 // service-worker.js
 
-const BASE_PATH = '/Raycasting/';
+// Detecta localhost/Live Server (/) ou GitHub Pages (/Raycasting/)
+const isDev = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
+const BASE_PATH = isDev ? '/' : '/Raycasting/';
 const CACHE_NAME = 'raycast-v1';
 const ASSETS_TO_CACHE = [
   BASE_PATH,
@@ -10,7 +12,6 @@ const ASSETS_TO_CACHE = [
   BASE_PATH + 'JavaScript/game.js',
   BASE_PATH + 'JavaScript/player.js',
   BASE_PATH + 'JavaScript/raycast.js',
-  BASE_PATH + 'JavaScript/map.js',
   BASE_PATH + 'JavaScript/joystick.js',
   BASE_PATH + 'JavaScript/sky.js',
   BASE_PATH + 'JavaScript/floor.js',
