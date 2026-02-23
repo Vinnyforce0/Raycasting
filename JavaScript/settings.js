@@ -51,44 +51,67 @@ function toggleSettingsMenu() {
   menu.style.background = "#111";
   menu.style.color = "white";
   menu.style.padding = "15px";
-  menu.style.marginTop = "20px";
   menu.style.borderRadius = "10px";
   menu.style.zIndex = "999";
-  menu.style.width = "200px";
+  menu.style.maxWidth = "400px";
+  menu.style.minWidth = "300px";
+  menu.style.maxHeight = "80vh";
+  menu.style.overflowY = "auto";
+  menu.style.display = "flex";
+  menu.style.flexDirection = "column";
 
   menu.innerHTML = `
-    <h3>Configurações</h3><br>
-
-    <label>
-      <input type="checkbox" id="skyToggle" ${gameSettings.sky ? "checked" : ""}>
-      Céu
-    </label><br><br>
-
-    <label>
-      <input type="checkbox" id="floorToggle" ${gameSettings.floor ? "checked" : ""}>
-      Chão
-    </label><br><br>
+    <h3 style="margin: 0 0 15px 0;">Configurações</h3>
     
-    <label>
-      <input type="checkbox" id="textureToggle" ${gameSettings.usetextures ? "checked" : ""}>
-      Paredes
-    </label><br><br>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+      <!-- Céu -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="skyToggle" ${gameSettings.sky ? "checked" : ""}>
+          Céu
+        </label>
+      </div>
 
-    <label>
-      FPS:
-      <input type="range" id="fpsSlider" min="15" max="60" step="15" value="${gameSettings.fps}">
-      <span id="fpsValue">${gameSettings.fps}</span>
-    </label><br><br>
+      <!-- Chão -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="floorToggle" ${gameSettings.floor ? "checked" : ""}>
+          Chão
+        </label>
+      </div>
+      
+      <!-- Paredes -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="textureToggle" ${gameSettings.usetextures ? "checked" : ""}>
+          Paredes
+        </label>
+      </div>
 
-    <label>
-      FOV: <span id="fovValue">${gameSettings.fov}°</span><br>
-      <input type="range" id="fovSlider" min="30" max="120" value="${gameSettings.fov}">
-    </label><br><br>
+      <!-- FPS -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: block; font-size: 12px; margin-bottom: 5px;">
+          FPS: <span id="fpsValue">${gameSettings.fps}</span>
+        </label>
+        <input type="range" id="fpsSlider" min="15" max="90" step="15" value="${gameSettings.fps}" style="width: 100%;">
+      </div>
 
-    <label>
-      Raios: <span id="raysValue">${gameSettings.rays}</span><br>
-      <input type="range" id="raysSlider" min="50" max="300" step="10" value="${gameSettings.rays}">
-    </label>
+      <!-- FOV -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: block; font-size: 12px; margin-bottom: 5px;">
+          FOV: <span id="fovValue">${gameSettings.fov}°</span>
+        </label>
+        <input type="range" id="fovSlider" min="30" max="120" step="10" value="${gameSettings.fov}" style="width: 100%;">
+      </div>
+
+      <!-- Resolução -->
+      <div style="padding: 10px; background: #222; border-radius: 5px;">
+        <label style="display: block; font-size: 12px; margin-bottom: 5px;">
+          Resolução: <span id="raysValue">${gameSettings.rays}</span>
+        </label>
+        <input type="range" id="raysSlider" min="60" max="400" step="20" value="${gameSettings.rays}" style="width: 100%;">
+      </div>
+    </div>
   `;
 
   document.body.appendChild(menu);
