@@ -1,7 +1,7 @@
 // service-worker.js
 
 // Importa a versão do config.js
-importScripts('JavaScript/config.js');
+importScripts('./JavaScript/config.js');
 
 // Detecta localhost/Live Server (/) ou GitHub Pages (/Raycasting/)
 const isDev = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
@@ -12,6 +12,7 @@ const ASSETS_TO_CACHE = [
   BASE_PATH + 'index.html',
   BASE_PATH + 'manifest.json',
   BASE_PATH + 'style.css',
+  BASE_PATH + 'JavaScript/config.js',
   BASE_PATH + 'JavaScript/game.js',
   BASE_PATH + 'JavaScript/player.js',
   BASE_PATH + 'JavaScript/raycast.js',
