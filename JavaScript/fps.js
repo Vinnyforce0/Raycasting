@@ -2,8 +2,7 @@ const FPS = {
   target: 30,
   lastTime: performance.now(),
   fps: 0,
-  rafCount: 0,      // Conta requestAnimationFrame calls (FPS do navegador)
-  gameFrameCount: 0, // Conta game updates (FPS do jogo)
+  frameCount: 0,
   lastSecond: performance.now(),
 
   update: function(updateGameCallback) {
@@ -11,8 +10,6 @@ const FPS = {
     const delta = now - this.lastTime;
 
     const targetFrameDuration = 1000 / this.target;
-
-    this.rafCount++; // Incrementa a cada RAF call
 
     if (delta >= targetFrameDuration) {
 
@@ -24,15 +21,13 @@ const FPS = {
       // Passa deltaTime para o jogo
       updateGameCallback(deltaTime);
 
-      this.gameFrameCount++;
+      this.frameCount++;
     }
 
-    // Atualiza FPS a cada terço de segundo (~333ms)
-    if (now - this.lastSecond >= 1000 / 3) {
-      this.fps = this.gameFrameCount; // Mostra game updates (FPS do jogo)
-      // console.log("RAF FPS:", this.rafCount, "Game FPS:", this.gameFrameCount);
-      this.rafCount = 0;
-      this.gameFrameCount = 0;
+    // Atualiza FPS a cada 1 segundo
+    if (now - this.lastSecond >= 1000) {
+      this.fps = this.frameCount;
+      this.frameCount = 0;
       this.lastSecond = now;
     }
 

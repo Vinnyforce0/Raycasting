@@ -2,4 +2,4 @@
 // CONFIGURAÇÃO GLOBAL
 // =======================
 
-const APP_VERSION = "1.0.3.8";
+const APP_VERSION = "1.0.3.10";
